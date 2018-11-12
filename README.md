@@ -8,6 +8,7 @@
 ### Requirements
 - Python 3.x
 - Crypto 库
+- curl with IPv6 support
 
 ### Manual
 复制 `config_sample.json` 为 `config.json`。  
