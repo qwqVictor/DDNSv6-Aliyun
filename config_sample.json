@@ -1,0 +1,27 @@
+{
+    "accessKeyId": "KEYKKKKKKKKKK",
+    "accessKeySecret": "SECRETSSSSSSSSSSSSS",
+    "rc_info": {
+        "domain1.com": [
+            {
+                "rc_rr": "@",
+                "rc_ttl": "120",
+                "rc_record_id": null
+            }
+        ],
+        "domain2.com": [
+            {
+                "rc_rr": "@",
+                "rc_ttl": "120",
+                "rc_record_id": null
+            },
+            {
+                "rc_rr": "ipv6",
+                "rc_ttl": "360",
+                "rc_record_id": null
+            }
+        ]
+    },
+    "get_IPv6_site": "ipv6.ip.sb",
+    "aliyun_endpoint": "cn-hangzhou"
+}
