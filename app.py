@@ -86,8 +86,8 @@ if __name__ == '__main__':
             if rc_record_id is None:
                 rc_record_id_json_raw = check_records(domain)
                 rc_record_id_json_obj = JSONDecoder.decode(rc_record_id_json_raw)
-                for record in rc_record_id_json_obj['DomainRecords']['Record'] and record['Locked'] == False and record['Status'] == "ENABLE":
-                    if record['RR'] == rc_rr and record['Type'] == rc_type:
+                for record in rc_record_id_json_obj['DomainRecords']['Record']:
+                    if record['RR'] == rc_rr and record['Type'] == rc_type and record['Locked'] == False and record['Status'] == "ENABLE":
                         rc_record_id = record['RecordId']
                         info['rc_record_id'] = record['RecordId']
                         bool_update_conf = True
