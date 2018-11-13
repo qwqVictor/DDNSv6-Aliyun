@@ -23,5 +23,6 @@
         ]
     },
     "get_IPv6_site": "ipv6.ip.sb",
-    "aliyun_endpoint": "cn-hangzhou"
+    "aliyun_endpoint": "cn-hangzhou",
+    "debug": false
 }
