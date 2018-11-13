@@ -45,7 +45,8 @@
         ]
     },
     "get_IPv6_site": "ipv6.ip.sb",
-    "aliyun_endpoint": "cn-hangzhou"
+    "aliyun_endpoint": "cn-hangzhou",
+    "debug": false
 }
 ```
 #### 字段解释
@@ -59,10 +60,13 @@
 
 `get_IPv6_site` 字段是获取您的 IPv6 地址的 URL，您也可以自行搭建 IPv6 地址获取 API，我们默认使用 `ipv6.ip.sb`。
 
-`aliyun_endpoint` 字段是使得程序请求这个字段规定地域的阿里云 API 服务器。
+`aliyun_endpoint` 字段使得程序请求这个字段规定的阿里云 API 服务器。  
+
+`debug` 字段设置程序是否处于调试模式，调试模式下会输出更多信息。
 ### Todo List
 - [x] 自动获取解析记录 ID
 - [x] 配置文件改用更加容易编写的 JSON 格式
+- [ ] 支持本地获取 IPv6 地址
 
 ~~考完 NOIP 我会回来继续更新的。（咕咕咕警告~~  
 我没咕，我没咕！
