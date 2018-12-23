@@ -17,14 +17,14 @@ argv_arr.reverse()
 run_mode = "main"
 while len(argv_arr) > 1:
     arg = argv_arr.pop()
-    if arg == "-c" || arg == "--config":
+    if arg == "-c" or arg == "--config":
         try:
             conf_file = argv_arr.pop();
         except:
             raise Exception("Uncomplete config argument.")
-    else if arg == "-g" || arg == "--get-record":
+    elif arg == "-g" or arg == "--get-record":
         run_mode = "get-record"
-    else if arg == "-?" || "--help":
+    elif arg == "-?" or arg == "--help":
         print('''
 Usage: %s [options]
   -c, --config:
@@ -168,5 +168,5 @@ def main():
 if __name__ == '__main__':
     if run_mode == "get-record":
         get_record_ids()
-    else
+    else:
         main()
