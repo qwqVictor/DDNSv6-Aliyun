@@ -14,6 +14,7 @@ JSONEncoder = json.JSONEncoder()
 conf_file = "config.json"
 argv_arr = sys.argv.copy()
 argv_arr.reverse()
+run_mode = "main"
 while len(argv_arr) > 1:
     arg = argv_arr.pop()
     if arg == "-c" || arg == "--config":
@@ -21,11 +22,15 @@ while len(argv_arr) > 1:
             conf_file = argv_arr.pop();
         except:
             raise Exception("Uncomplete config argument.")
+    else if arg == "-g" || arg == "--get-record":
+        run_mode = "get-record"
     else if arg == "-?" || "--help":
         print('''
 Usage: %s [options]
   -c, --config:
     Custom config file path.
+  -g, --get-record:
+    Get record IDs of these records which are marked null only, do not update.
   -?, --help:
     Show this help.
 ''' % sys.argv[0])
@@ -34,7 +39,7 @@ conf_file_in = open(conf_file, 'r')
 try:
     conf_json_raw = conf_file_in.read()
 except:
-    raise Exception("Unable to find config")
+    raise Exception("Unable to find config.")
 finally:
     conf_file_in.close()
 
@@ -103,7 +108,23 @@ def get_local_IPv6_address():
     else:
         return None
 
-if __name__ == '__main__':
+def get_record_ids():
+    bool_got_ids = False
+    for domain in rc_domain:
+        for info in rc_info[domain]:
+            rc_rr = info['rc_rr']
+            rc_record_id = info['rc_record_id']
+            if rc_record_id is None:
+                rc_record_id_json_raw = check_records(domain)
+                rc_record_id_json_obj = JSONDecoder.decode(rc_record_id_json_raw)
+                for record in rc_record_id_json_obj['DomainRecords']['Record']:
+                    if record['RR'] == rc_rr and record['Type'] == rc_type and record['Locked'] == False and record['Status'] == "ENABLE":
+                        print("Record: %s.%s, Type: %s, TTL: %d, Line: %s.\nRecordId: %s\n" % (rc_rr, domain, rc_type, record['TTL'], record['Line'], record['RecordId']))
+                        bool_got_ids = True
+                if bool_got_ids is False:
+                    print("No records found.")
+
+def main():
     bool_update_conf = False
     bool_no_change = True
     rc_value = get_local_IPv6_address()
@@ -143,3 +164,9 @@ if __name__ == '__main__':
             conf_file_in.close()
     if bool_no_change is True:
         print("No records changed.")
+
+if __name__ == '__main__':
+    if run_mode == "get-record":
+        get_record_ids()
+    else
+        main()
