@@ -139,7 +139,7 @@ def main():
                 rc_record_id_json_raw = check_records(domain)
                 rc_record_id_json_obj = JSONDecoder.decode(rc_record_id_json_raw)
                 if debug is True:
-                    print("Returned JSON:\n %s" % rc_record_id_json_raw)
+                    sys.stderr.write("Returned JSON:\n %s\n" % rc_record_id_json_raw)
                 for record in rc_record_id_json_obj['DomainRecords']['Record']:
                     if record['RR'] == rc_rr and record['Type'] == rc_type and record['Locked'] == False and record['Status'] == "ENABLE":
                         rc_record_id = record['RecordId']
@@ -156,7 +156,7 @@ def main():
                 rc_result = update_dns(rc_rr, rc_type, rc_value, rc_record_id, rc_ttl, 'json')
                 bool_no_change = False
                 if debug is True:
-                    print("Returned JSON:\n %s" % rc_result)
+                    sys.stderr.write("Returned JSON:\n %s\n" % rc_result)
                 print("DNS AAAA record updated for %s.%s (RecordId: %s)" % (rc_rr, domain, rc_record_id))
                 print("old record is %s, new record is %s\n" % (rc_value_old, rc_value))
     if bool_update_conf is True:
