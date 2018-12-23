@@ -10,13 +10,33 @@ import subprocess
 JSONDecoder = json.JSONDecoder()
 JSONEncoder = json.JSONEncoder()
 
-conf_file_in = open('config.json', 'r')
+conf_file = "config.json"
+argv_arr = sys.argv.copy()
+argv_arr.reverse()
+while len(argv_arr) > 1:
+    arg = argv_arr.pop()
+    if arg == "-c" || arg == "--config":
+        try:
+            conf_file = argv_arr.pop();
+        except:
+            raise Exception("Uncomplete config argument.")
+    else if arg == "-?" || "--help":
+        print('''
+Usage: %s [options]
+  -c, --config:
+    Custom config file path.
+  -?, --help:
+    Show this help.
+''' % sys.argv[0])
+
+conf_file_in = open(conf_file, 'r')
 try:
     conf_json_raw = conf_file_in.read()
 except:
-    raise Exception("Unable to find config.json")
+    raise Exception("Unable to find config")
 finally:
     conf_file_in.close()
+
 
 conf_json_obj = JSONDecoder.decode(conf_json_raw)
 accessKeyId = conf_json_obj['accessKeyId']

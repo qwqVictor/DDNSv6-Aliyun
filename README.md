@@ -15,7 +15,7 @@
 
 在 `config.json` 中根据要求填写配置文件。  
 
-保证当前工作目录下存在 `config.json` 的情况下执行 `app.py`。
+保证当前工作目录下存在 `config.json` 的情况下执行 `app.py`，您也可以用 `-c` 参数自定义配置文件路径。
 
 ### Configuration
 #### 示例
