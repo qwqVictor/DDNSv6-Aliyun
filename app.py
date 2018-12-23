@@ -15,14 +15,14 @@ conf_file = "config.json"
 argv_arr = sys.argv.copy()
 argv_arr.reverse()
 run_mode = "main"
-while len(argv_arr) > 1:
+while len(argv_arr) > 0:
     arg = argv_arr.pop()
     if arg == "-c" or arg == "--config":
         try:
             conf_file = argv_arr.pop();
         except:
             raise Exception("Uncomplete config argument.")
-    elif arg == "-g" or arg == "--get-record":
+    if arg == "-g" or arg == "--get-record":
         run_mode = "get-record"
     elif arg == "-?" or arg == "--help":
         print('''
@@ -169,4 +169,4 @@ if __name__ == '__main__':
     if run_mode == "get-record":
         get_record_ids()
     else:
-        main()
+        main()()
