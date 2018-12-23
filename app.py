@@ -20,20 +20,23 @@ while len(argv_arr) > 0:
     if arg == "-c" or arg == "--config":
         try:
             conf_file = argv_arr.pop();
+            continue
         except:
             raise Exception("Uncomplete config argument.")
-    if arg == "-g" or arg == "--get-record":
-        run_mode = "get-record"
-    elif arg == "-?" or arg == "--help":
+    if arg == "-g" or arg == "--get-record-id":
+        run_mode = "get-record-id"
+        continue
+    if arg == "-?" or arg == "--help":
         print('''
 Usage: %s [options]
   -c, --config:
     Custom config file path.
-  -g, --get-record:
+  -g, --get-record-id:
     Get record IDs of these records which are marked null only, do not update.
   -?, --help:
     Show this help.
 ''' % sys.argv[0])
+        exit(0)
 
 conf_file_in = open(conf_file, 'r')
 try:
@@ -108,7 +111,7 @@ def get_local_IPv6_address():
     else:
         return None
 
-def get_record_ids():
+def get_record_id():
     bool_got_ids = False
     for domain in rc_domain:
         for info in rc_info[domain]:
@@ -157,7 +160,7 @@ def main():
                 print("DNS AAAA record updated for %s.%s (RecordId: %s)" % (rc_rr, domain, rc_record_id))
                 print("old record is %s, new record is %s\n" % (rc_value_old, rc_value))
     if bool_update_conf is True:
-        conf_file_out = open('config.json', 'w');
+        conf_file_out = open(conf_file, 'w');
         try:
             conf_file_out.write(json.dumps(conf_json_obj,indent=4))
         finally:
@@ -166,7 +169,7 @@ def main():
         print("No records changed.")
 
 if __name__ == '__main__':
-    if run_mode == "get-record":
-        get_record_ids()
+    if run_mode == "get-record-id":
+        get_record_id()
     else:
-        main()()
+        main()
