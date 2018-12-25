@@ -128,7 +128,6 @@ def get_record_id():
                     print("No records found.")
 
 def main():
-    bool_update_conf = False
     bool_no_change = True
     rc_value = get_local_IPv6_address()
     for domain in rc_domain:
@@ -159,12 +158,6 @@ def main():
                     sys.stderr.write("Returned JSON:\n %s\n" % rc_result)
                 print("DNS AAAA record updated for %s.%s (RecordId: %s)" % (rc_rr, domain, rc_record_id))
                 print("old record is %s, new record is %s\n" % (rc_value_old, rc_value))
-    if bool_update_conf is True:
-        conf_file_out = open(conf_file, 'w');
-        try:
-            conf_file_out.write(json.dumps(conf_json_obj,indent=4))
-        finally:
-            conf_file_in.close()
     if bool_no_change is True:
         print("No records changed.")
 
