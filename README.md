@@ -7,13 +7,15 @@
 
 ### Requirements
 - Python 3.x
-- Crypto 库
+- pip
 - curl with IPv6 support
 
 ### Manual
 复制 `config_sample.json` 为 `config.json`。  
 
 在 `config.json` 中根据要求填写配置文件。  
+
+运行 pip 来安装依赖包 `pip3 install -r requirements.txt`。  
 
 保证当前工作目录下存在 `config.json` 的情况下执行 `app.py`，您也可以用 `-c` 参数自定义配置文件路径。
 
